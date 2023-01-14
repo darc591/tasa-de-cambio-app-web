@@ -8,6 +8,7 @@ import {
 import { api } from "../api/api";
 import { parseAdList } from "../helpers/parseAdList";
 import { calculateResults } from "../helpers/calculateResults";
+import { AxiosError } from "axios";
 
 export const ExchangeRateContext = createContext(
   {} as ExchangeRateProviderTypes
@@ -33,7 +34,7 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
       };
       setUSDrates(_rates);
       return _rates;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.response?.data);
     }
   };
@@ -44,7 +45,7 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
       const parsedList = parseAdList(response.data?.data?.ad_list);
       setBRLads(parsedList);
       return parsedList;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.response?.data);
     }
   };
@@ -55,7 +56,7 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
       const parsedList = parseAdList(response.data?.data?.ad_list);
       setVEDads(parsedList);
       return parsedList;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.response?.data);
     }
   };
