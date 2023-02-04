@@ -4,6 +4,7 @@ import { useExchangeRate } from "../../context/useExchangeRate";
 import * as masks from "../../helpers/masks";
 import React, { useState } from "react";
 import EditarTasa from "./editarTasa/editarTasa";
+import CalcularComisionCard from "../calcularComisionCard/calcularComisionCard";
 
 const Results = () => {
   const [editarTasaModal, setEditarTasaModal] = useState(false);
@@ -24,7 +25,7 @@ const Results = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "50px",
+          gap: "25px",
         }}
       >
         <Typography variant="h4" fontWeight="bold">
@@ -114,7 +115,7 @@ const Results = () => {
                   }}
                 >
                   <Typography variant="body1" color="#4B9460">
-                    {result.variacion > 0 ? "+" : "-"}
+                    {result.variacion > 0 ? "+" : ""}
                     {masks.dinero("en-US", "USD").format(result.variacion)}
                   </Typography>
                   <Typography variant="body2" color="#428555">
@@ -145,6 +146,10 @@ const Results = () => {
             </Grid>
           </Grid>
         </div>
+        <Typography variant="h5" fontWeight="bold">
+          Calcular comisión
+        </Typography>
+        <CalcularComisionCard />
       </div>
     </>
   );

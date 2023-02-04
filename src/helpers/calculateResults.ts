@@ -9,11 +9,12 @@ export const calculateResults = (
 ) => {
   const bestBrlAd = brlAds[0];
   const bestVedAd = vedAds[0];
-
-  const cantidadBTC = margen
-    ? valorEnviando / bestBrlAd.price -
-      (valorEnviando / bestBrlAd.price) * margen
-    : valorEnviando / bestBrlAd.price;
+  const formatedMargim = margen / 100;
+  const cantidadBTC =
+    typeof margen === "number"
+      ? valorEnviando / bestBrlAd.price -
+        (valorEnviando / bestBrlAd.price) * formatedMargim
+      : valorEnviando / bestBrlAd.price;
 
   const valorEnviandoUSD = Number((valorEnviando / usdRates.BRL).toFixed(2));
 

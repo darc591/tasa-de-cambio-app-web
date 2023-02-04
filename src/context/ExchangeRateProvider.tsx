@@ -21,7 +21,8 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
   const [result, setResult] = useState<Result>(null);
   const [resultWithComisions, setResultWithComisions] = useState<Result>();
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [valorEnviado, setValorEnviado] = useState<number>();
+  const [porcentaje, setPorcentaje] = useState<number>(10);
   const getRates = async () => {
     try {
       const response = await Promise.all([
@@ -75,8 +76,16 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
         valor,
         parsedLists[2]
       );
+      const resultWithComision = calculateResults(
+        parsedLists[0],
+        parsedLists[1],
+        valor,
+        parsedLists[2],
+        porcentaje
+      );
+      setValorEnviado(valor);
       setResult(result);
-      setResultWithComisions(result);
+      setResultWithComisions(resultWithComision);
     } catch (error) {
       console.error(error);
     } finally {
@@ -86,8 +95,16 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
 
   const editarTasa = (valor?: number) => {
     const result = calculateResults(BRLads, VEDads, valor, USDrates);
+    const resultWithComision = calculateResults(
+      BRLads,
+      VEDads,
+      valor,
+      USDrates,
+      porcentaje
+    );
+    setValorEnviado(valor);
     setResult(result);
-    setResultWithComisions(result);
+    setResultWithComisions(resultWithComision);
   };
 
   const calcularOfrecerCambio = (
@@ -104,6 +121,7 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
       usdRates,
       margen
     );
+    setPorcentaje(margen);
     setResultWithComisions(resultado);
   };
 
@@ -116,6 +134,7 @@ export const ExchangeRateProvider = ({ children }: React.PropsWithChildren) => {
         resultWithComisions,
         result,
         loading,
+        valorEnviado,
         buscarTasa,
         editarTasa,
         calcularOfrecerCambio,

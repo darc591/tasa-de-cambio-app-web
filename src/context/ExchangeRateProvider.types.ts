@@ -1,5 +1,6 @@
 export type ExchangeRateProviderTypes = {
   USDrates: Rates;
+  valorEnviado: number;
   BRLads: FormatedAd[];
   VEDads: FormatedAd[];
   result: Result;
